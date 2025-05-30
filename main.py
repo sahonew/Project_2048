@@ -1,10 +1,11 @@
 import sys
 import random
-from PyQt6 import QtWidgets
-from PyQt6.QtCore import Qt,QPropertyAnimation
+from PyQt6 import QtWidgets,QtCore,QtGui
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton
 
 class Game2048(QtWidgets.QMainWindow):
-    def __init__(self):
+    def __init__(self,menu_window=None):
         super().__init__()
         from PyQt6.uic import loadUi
         loadUi("2048.ui", self)
@@ -14,19 +15,25 @@ class Game2048(QtWidgets.QMainWindow):
         self.best_score = 0  #текущий счет
         self.game_over = False #флаг окончании игры
         self.previous_state = None #переменная хранит предыдущее состояние поля
+        self.menu_window = menu_window
         
         self.setWindowTitle("2048")
         self.setWindowState(Qt.WindowState.WindowFullScreen)
         self.setup_labels() #настройка лейблов
-        
         self.pushButton.clicked.connect(self.new_game)
         self.pushButton_3.clicked.connect(self.undo_move) #присвоевание кнпокам функции
+        self.pushButton_2.clicked.connect(self.open_menu)  # Кнопка для открытия меню
         
         self.centralwidget.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         self.centralwidget.keyPressEvent = self.keyPressEvent #настройка клавиатруры и обработки нажатия клавиш
         
         self.new_game() #запуск новой игры
-    
+
+    def open_menu(self):
+     if self.menu_window:
+        self.menu_window.show()
+        self.hide()
+            
     def setup_labels(self):
         self.cell_labels = [
             self.label_4, self.label_3, self.label_5, self.label_6,
@@ -73,17 +80,18 @@ class Game2048(QtWidgets.QMainWindow):
                 label = self.cell_labels[i * self.grid_size + j]  #присваивает ячейке списки соотвествущий лейбл 
                 label.setText(str(value) if value != 0 else "")  #выводит тект лейблу в соотвесвтии с значением
                 label.setStyleSheet(self.get_cell_style(value))  # устанавливает цвет и стиль плитки в соответствии с её значением
-
-        self.label_2.setText(f"Текущий счет: {self.score}")  # устанавливет значение текущего счета
-
+                
+        self.label_2.setText(f"Текущий счет: {self.score}")
         if self.score > self.best_score:
             self.best_score = self.score
-        self.label.setText(f"Лучший счет: {self.best_score}")  #проверяет больше ли текущий счет лучшего и в соотвествии меняет значение 
+        self.label.setText(f"Лучший счет: {self.best_score}")
         
-        if self.is_game_over():  #проверка окончания игры
-            self.game_over = True  #устанвливввет фложок что игра пргигарана 
-            QtWidgets.QMessageBox.information(self, "Игра окончена", f"Ваш счет: {self.score}")  #вызывает оповищение 
-    
+        
+        if self.is_game_over() and not self.game_over:
+            self.game_over = True
+            dialog = GameOverDialog(self.score, self)
+            dialog.exec()
+            
     def get_cell_style(self, value):
         colors = {
             0: "#c7c7c7",
@@ -224,7 +232,81 @@ class Game2048(QtWidgets.QMainWindow):
                     return False
         
         return True
+    
+class GameOverDialog(QDialog):
+    def __init__(self, score, parent=None):
+        super().__init__(parent)
+        self.setWindowFlag(Qt.WindowType.FramelessWindowHint)
+        self.setupUi(self)
+        self.score = score
+        self.setWindowTitle("Игра окончена")
+        self.setFixedSize(400, 300)
+        self.label_3.setText(f"СЧЕТ: {self.score}")
+        self.pushButton.clicked.connect(self.accept)
+        self.pushButton.clicked.connect(self.close)
+        self.setStyleSheet("""
+            QDialog {
+                background: transparent;
+            }
+            QLabel {
+                font-weight: bold;
+            }
+        """)
+        screen_geometry = QtWidgets.QApplication.primaryScreen().availableGeometry()
+        center_point = screen_geometry.center()
+        self.move(center_point - self.rect().center())
 
+    def setupUi(self, Dialog):
+        Dialog.setObjectName("Dialog")
+        Dialog.resize(400, 300)
+        self.widget = QtWidgets.QWidget(parent=Dialog)
+        self.widget.setGeometry(QtCore.QRect(0, 0, 400, 400))
+        self.widget.setStyleSheet("background-color: #e8e8e8;\n"
+"border-radius: 10px;")
+        self.widget.setObjectName("widget")
+        self.verticalLayoutWidget = QtWidgets.QWidget(parent=self.widget)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 10, 361, 271))
+        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.label = QtWidgets.QLabel(parent=self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        font.setBold(True)
+        self.label.setFont(font)
+        self.label.setStyleSheet("color: #FF5733;")
+        self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label.setObjectName("label")
+        self.verticalLayout.addWidget(self.label)
+        self.label_3 = QtWidgets.QLabel(parent=self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        font.setBold(True)
+        self.label_3.setFont(font)
+        self.label_3.setStyleSheet("color: #999;")
+        self.label_3.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label_3.setObjectName("label_3")
+        self.verticalLayout.addWidget(self.label_3)
+        self.pushButton = QtWidgets.QPushButton(parent=self.verticalLayoutWidget)
+        self.pushButton.setStyleSheet("background-color: #999;\n"
+"color: white;\n"
+"border-radius: 5px;\n"
+"padding: 8px 15px;\n"
+"font-weight: bold;\n"
+"")
+        self.pushButton.setObjectName("pushButton")
+        self.verticalLayout.addWidget(self.pushButton)
+
+        self.retranslateUi(Dialog)
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
+
+    def retranslateUi(self, Dialog):
+        _translate = QtCore.QCoreApplication.translate
+        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        self.label.setText(_translate("Dialog", "ИГРА ОКОНЧЕНА"))
+        self.label_3.setText(_translate("Dialog", "СЧЕТ:"))
+        self.pushButton.setText(_translate("Dialog", "OK"))
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

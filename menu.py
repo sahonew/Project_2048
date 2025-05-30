@@ -1,7 +1,7 @@
 import sys
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtCore import Qt
-from main_4 import Game2048
+from main import Game2048
 from main_6 import Game2048_6x6
 
 class MenuWindow(QtWidgets.QWidget):
