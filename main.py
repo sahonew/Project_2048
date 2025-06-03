@@ -181,25 +181,26 @@ class Game2048(QtWidgets.QMainWindow):
         if self.score > self.best_score:
             self.best_score = self.score
             self.save_game_data() 
+            
         self.label.setText(f"Лучший счет: {self.best_score}")
-        
-        if not self.game_over and not self.has_won and any(2048 in row for row in self.board):
-                self.has_won = True 
-                self.game_over = True
-                dialog = GameWinDialog(self)
-                self.win_sound.play()
-                result = dialog.exec()
-                
-                if result == QDialog.DialogCode.Accepted:
-                    self.game_over = False
-                else:
-                    self.new_game()
-                    self.has_won = False   
-        if self.is_game_over() and not self.game_over:
-                self.game_over = True
-                dialog = GameOverDialog(self.score, self)
-                dialog.exec()
-
+        if not self.has_won and any(2048 in row for row in self.board):
+            self.has_won = True
+            dialog = GameWinDialog(self)
+            self.win_sound.play()
+            result = dialog.exec()
+            
+            if result == QDialog.DialogCode.Accepted:
+                pass
+            else:
+                self.new_game()
+                return
+            
+        if not any(0 in row for row in self.board) and self.is_game_over():
+            self.game_over = True
+            dialog = GameOverDialog(self.score, self)
+            self.game_over_sound.play()
+            dialog.exec()
+            self.new_game()
                 
     def get_cell_style(self, value):
         colors = {
@@ -310,8 +311,7 @@ class Game2048(QtWidgets.QMainWindow):
                 moved = True
                 self.score += score_add
                 self.board[i] = new_row
-                print(f"Строка {i} изменена")
-        
+
         return moved
     
     def slide_and_merge(self, line):
