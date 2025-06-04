@@ -2,18 +2,22 @@ import sys
 import json
 import os
 from pathlib import Path
-import sys
 import random
 from PyQt6 import QtWidgets, QtCore, QtGui, QtMultimedia
 from PyQt6.QtCore import Qt, QUrl
 from PyQt6.QtWidgets import QDialog
 from PyQt6.QtMultimedia import QSoundEffect
 
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
+
 class Game2048_6x6(QtWidgets.QMainWindow):
     def __init__(self,menu_window=None):
         super().__init__()
         from PyQt6.uic import loadUi
-        loadUi("2048_6.ui", self)
+        loadUi(resource_path("2048_6.ui"), self)
         self.grid_size = 6
         self.board = [[0] * self.grid_size for _ in range(self.grid_size)]
         self.score = 0
@@ -22,12 +26,11 @@ class Game2048_6x6(QtWidgets.QMainWindow):
         self.has_won = False
         self.previous_state = None
         self.menu_window = menu_window
-        if self.menu_window:
-         self.menu_window.game_window = self
         
-        self.save_file = Path("game_save6x6.json")
-        self.load_game_data() 
-        
+        self.save_file = self.get_save_path("game_save6x6.json")
+        self.setup_labels()
+        self.load_game_data()
+    
         self.setWindowTitle("2048")
         self.setWindowState(Qt.WindowState.WindowFullScreen)
         self.setup_labels()
@@ -39,21 +42,28 @@ class Game2048_6x6(QtWidgets.QMainWindow):
         self.centralwidget.keyPressEvent = self.keyPressEvent
         
         self.merge_sound = QSoundEffect()
-        self.merge_sound.setSource(QUrl.fromLocalFile("hod.wav"))
+        self.merge_sound.setSource(QUrl.fromLocalFile(resource_path("hod.wav")))
         self.merge_sound.setVolume(self.get_volume())
         
         self.win_sound = QSoundEffect()
-        self.win_sound.setSource(QUrl.fromLocalFile("win.wav"))
+        self.win_sound.setSource(QUrl.fromLocalFile(resource_path("win.wav")))
         self.win_sound.setVolume(self.get_volume())
         
+        
         self.game_over_sound = QSoundEffect()
-        self.game_over_sound.setSource(QUrl.fromLocalFile("game_over.wav"))
+        self.game_over_sound.setSource(QUrl.fromLocalFile(resource_path("game_over.wav")))
         self.game_over_sound.setVolume(self.get_volume())
         
         if not any(any(cell != 0 for cell in row) for row in self.board):
             self.new_game()
         else:
             self.update_ui()
+            
+    def get_save_path(self, filename):
+        if getattr(sys, 'frozen', False):
+            return Path(os.path.join(os.path.dirname(sys.executable), filename))
+        return Path(os.path.join(os.path.abspath("."), filename))
+    
             
     def get_volume(self):
         if self.menu_window:
@@ -83,7 +93,7 @@ class Game2048_6x6(QtWidgets.QMainWindow):
                 'current_game': self.get_game_state()
                 }
                 
-                with open(self.save_file, 'w') as f:
+                with open(str(self.save_file), 'w') as f: 
                  json.dump(data, f, indent=4)
                 
         except Exception as e:
@@ -93,7 +103,7 @@ class Game2048_6x6(QtWidgets.QMainWindow):
     def load_game_data(self):
         try:
             if self.save_file.exists():
-                with open(self.save_file, 'r') as f:
+                with open(str(self.save_file), 'r') as f:
                     data = json.load(f)
                     self.best_score = data.get('best_score', 0)
                     

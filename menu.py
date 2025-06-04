@@ -7,6 +7,11 @@ from PyQt6.QtCore import Qt
 from main import Game2048
 from main_6 import Game2048_6x6
 
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
+
 class MenuWindow(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
@@ -26,13 +31,23 @@ class MenuWindow(QtWidgets.QWidget):
         self.ui.horizontalSlider.valueChanged.connect(self.set_volume)
         
         self.ui.stackedWidget.setCurrentIndex(0)
+        
+    def get_settings_path(self):
+        if getattr(sys, 'frozen', False):
+            return os.path.join(os.path.dirname(sys.executable), "settings.json")
+        return "settings.json"
+
+    def get_save_path(self, filename):
+            if getattr(sys, 'frozen', False):
+                return os.path.join(os.path.dirname(sys.executable), filename)
+            return filename
 
     def setup_menu_buttons(self):
         self.ui.pushButton_3.clicked.connect(self.close)  #выход
         self.ui.pushButton_5.clicked.connect(lambda: self.show_page(1))  #режимы
         self.ui.pushButton_4.clicked.connect(lambda: self.show_page(2))  #настройки
         self.ui.pushButton_8.clicked.connect(lambda: self.show_page(0))  #правила
-        self.ui.pushButton_6.clicked.connect(self.start_game)  #продолжить
+        self.ui.pushButton_6.clicked.connect(self.start_game)  #играть
         
         self.ui.pushButton.clicked.connect(lambda: self.set_game_mod(4))  #4x4
         self.ui.pushButton_2.clicked.connect(lambda: self.set_game_mod(6))  #6x6
@@ -42,15 +57,23 @@ class MenuWindow(QtWidgets.QWidget):
     def show_page(self, page_index):
         self.ui.stackedWidget.setCurrentIndex(page_index)
 
+        
+    def set_game_mod(self, mode):
+            self.last_mode = mode 
+            self.start_game()
+            
     def reset_data(self):
         try:
+            settings_path = self.get_settings_path()
+            save_path_4x4 = self.get_save_path("game_save.json")
+            save_path_6x6 = self.get_save_path("game_save6x6.json")
 
-            if os.path.exists("settings.json"):
-                os.remove("settings.json")
-            if os.path.exists("game_save.json"):
-                os.remove("game_save.json")
-            if os.path.exists("game_save6x6.json"):
-                os.remove("game_save6x6.json")
+            if os.path.exists(settings_path):
+                os.remove(settings_path)
+            if os.path.exists(save_path_4x4):
+                os.remove(save_path_4x4)
+            if os.path.exists(save_path_6x6):
+                os.remove(save_path_6x6)
             
             self.volume = 50
             self.ui.horizontalSlider.setValue(self.volume)
@@ -72,7 +95,8 @@ class MenuWindow(QtWidgets.QWidget):
     def set_volume(self, value): 
         self.volume = value
         try:
-            with open("settings.json", "w") as f:
+            settings_path = self.get_settings_path()
+            with open(settings_path, "w") as f:
                 json.dump({"volume": self.volume}, f)
             for window in self.game_windows:
                 if hasattr(window, 'update_sound_volume'):
@@ -80,25 +104,15 @@ class MenuWindow(QtWidgets.QWidget):
         except Exception as e:
             print(f"Ошибка сохранения настроек: {e}")
             
-    def update_sound_volume(self):
-        volume = self.get_volume()
-        if hasattr(self, 'merge_sound'):
-            self.merge_sound.setVolume(volume)
-        if hasattr(self, 'game_over_sound'):
-            self.game_over_sound.setVolume(volume)
-        
     def load_volume_settings(self):
         try:
-            if os.path.exists("settings.json"):
-                with open("settings.json", "r") as f:
+            settings_path = self.get_settings_path()
+            if os.path.exists(settings_path):
+                with open(settings_path, "r") as f:
                     settings = json.load(f)
                     self.volume = settings.get("volume", 50)
         except Exception as e:
             print(f"Ошибка загрузки настроек: {e}")
-        
-    def set_game_mod(self, mode):
-            self.last_mode = mode 
-            self.start_game()
 
     def start_game(self):
         if self.game_window is not None:
@@ -119,7 +133,7 @@ class MenuWindow(QtWidgets.QWidget):
             self.ui.pushButton_3,  #выход
             self.ui.pushButton_4,  #настройки
             self.ui.pushButton_5,  #режимы
-            self.ui.pushButton_6,  #продолжить
+            self.ui.pushButton_6,  #играть
             self.ui.pushButton_8   #правила
         ]
         
@@ -388,7 +402,7 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.pushButton_6.setText(_translate("Form", "Продолжить"))
+        self.pushButton_6.setText(_translate("Form", "Играть"))
         self.pushButton_8.setText(_translate("Form", "Правила"))
         self.pushButton_5.setText(_translate("Form", "Режимы"))
         self.pushButton_4.setText(_translate("Form", "Настройки"))
