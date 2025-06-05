@@ -1,0 +1,961 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1920</width>
+    <height>1080</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1920</width>
+    <height>1080</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1920</width>
+    <height>1080</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="animated">
+   <bool>true</bool>
+  </property>
+  <property name="unifiedTitleAndToolBarOnMac">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="mouseTracking">
+    <bool>false</bool>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>170</y>
+      <width>271</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="accessibleDescription">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LayoutDirection::LeftToRight</enum>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #d4d4d4;
+color: white;
+border-radius: 5px;
+padding: 5px;
+font-weight: bold;</string>
+       </property>
+       <property name="text">
+        <string>Текущий счет:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="styleSheet">
+        <string notr="true">background-color: #d4d4d4;
+color: white;
+border-radius: 5px;
+padding: 5px;
+font-weight: bold;
+</string>
+       </property>
+       <property name="locale">
+        <locale language="Russian" country="Belarus"/>
+       </property>
+       <property name="text">
+        <string>Лучший счет:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>170</y>
+      <width>131</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LayoutDirection::LeftToRight</enum>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #999;
+color: white;
+border-radius: 5px;
+padding: 8px 15px;
+font-weight: bold;</string>
+       </property>
+       <property name="text">
+        <string>Меню</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #999;
+color: white;
+border-radius: 5px;
+padding: 8px 15px;
+font-weight: bold;</string>
+       </property>
+       <property name="text">
+        <string>Новая игра</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>270</y>
+      <width>103</width>
+      <height>38</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QPushButton" name="pushButton_3">
+       <property name="styleSheet">
+        <string notr="true">background-color: #999;
+color: white;
+border-radius: 5px;
+padding: 8px 15px;
+font-weight: bold;</string>
+       </property>
+       <property name="text">
+        <string>Отменить</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>320</y>
+      <width>601</width>
+      <height>601</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QWidget" name="widget" native="true">
+       <property name="styleSheet">
+        <string notr="true">background-color: #e8e8e8;
+border-radius: 10px;</string>
+       </property>
+       <widget class="QLabel" name="lable_00">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>13</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_02">
+        <property name="geometry">
+         <rect>
+          <x>205</x>
+          <y>13</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_32">
+        <property name="geometry">
+         <rect>
+          <x>205</x>
+          <y>305</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_20">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>208</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_23">
+        <property name="geometry">
+         <rect>
+          <x>302</x>
+          <y>208</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_31">
+        <property name="geometry">
+         <rect>
+          <x>107</x>
+          <y>305</y>
+          <width>88</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_03">
+        <property name="geometry">
+         <rect>
+          <x>302</x>
+          <y>13</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_10">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>110</y>
+          <width>87</width>
+          <height>88</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_22">
+        <property name="geometry">
+         <rect>
+          <x>205</x>
+          <y>208</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_33">
+        <property name="geometry">
+         <rect>
+          <x>302</x>
+          <y>305</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_01">
+        <property name="geometry">
+         <rect>
+          <x>107</x>
+          <y>13</y>
+          <width>88</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_11">
+        <property name="geometry">
+         <rect>
+          <x>107</x>
+          <y>110</y>
+          <width>88</width>
+          <height>88</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_12">
+        <property name="geometry">
+         <rect>
+          <x>205</x>
+          <y>110</y>
+          <width>87</width>
+          <height>88</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_21">
+        <property name="geometry">
+         <rect>
+          <x>107</x>
+          <y>208</y>
+          <width>88</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_13">
+        <property name="geometry">
+         <rect>
+          <x>302</x>
+          <y>110</y>
+          <width>87</width>
+          <height>88</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_30">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>305</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_04">
+        <property name="geometry">
+         <rect>
+          <x>400</x>
+          <y>13</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_24">
+        <property name="geometry">
+         <rect>
+          <x>400</x>
+          <y>208</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_14">
+        <property name="geometry">
+         <rect>
+          <x>400</x>
+          <y>110</y>
+          <width>87</width>
+          <height>88</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_34">
+        <property name="geometry">
+         <rect>
+          <x>400</x>
+          <y>305</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_05">
+        <property name="geometry">
+         <rect>
+          <x>500</x>
+          <y>13</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_35">
+        <property name="geometry">
+         <rect>
+          <x>500</x>
+          <y>305</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_25">
+        <property name="geometry">
+         <rect>
+          <x>500</x>
+          <y>208</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_15">
+        <property name="geometry">
+         <rect>
+          <x>500</x>
+          <y>110</y>
+          <width>87</width>
+          <height>88</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_41">
+        <property name="geometry">
+         <rect>
+          <x>107</x>
+          <y>400</y>
+          <width>88</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_44">
+        <property name="geometry">
+         <rect>
+          <x>400</x>
+          <y>400</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_45">
+        <property name="geometry">
+         <rect>
+          <x>500</x>
+          <y>400</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_40">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>400</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_42">
+        <property name="geometry">
+         <rect>
+          <x>205</x>
+          <y>400</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_43">
+        <property name="geometry">
+         <rect>
+          <x>302</x>
+          <y>400</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_55">
+        <property name="geometry">
+         <rect>
+          <x>500</x>
+          <y>500</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_53">
+        <property name="geometry">
+         <rect>
+          <x>302</x>
+          <y>500</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_51">
+        <property name="geometry">
+         <rect>
+          <x>107</x>
+          <y>500</y>
+          <width>88</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_50">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>500</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_54">
+        <property name="geometry">
+         <rect>
+          <x>400</x>
+          <y>500</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lable_52">
+        <property name="geometry">
+         <rect>
+          <x>205</x>
+          <y>500</y>
+          <width>87</width>
+          <height>87</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #c7c7c7;
+font-weight: bold;
+border-radius: 5px;</string>
+        </property>
+        <property name="text">
+         <string>title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
