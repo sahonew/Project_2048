@@ -25,6 +25,7 @@ class Game2048(QtWidgets.QMainWindow):
         self.game_over = False #флаг окончании игры
         self.previous_state = None #переменная хранит предыдущее состояние поля
         self.has_won = False
+        self.is_paused = False
         self.menu_window = menu_window
         self.save_file = self.get_save_path("game_save.json")
         self.setup_labels()
@@ -196,13 +197,15 @@ class Game2048(QtWidgets.QMainWindow):
         self.label.setText(f"Лучший счет: {self.best_score}")
         if not self.has_won and any(2048 in row for row in self.board):
             self.has_won = True
+            self.is_paused = True 
             dialog = GameWinDialog(self)
             self.win_sound.play()
             result = dialog.exec()
             
             if result == QDialog.DialogCode.Accepted:
-                pass
+                self.is_paused = False
             else:
+                self.is_paused = False  # Снимаем паузу если новая игра
                 self.new_game()
                 return
             
@@ -245,8 +248,8 @@ class Game2048(QtWidgets.QMainWindow):
         """
     
     def keyPressEvent(self, event):
-        if self.game_over:
-            return
+        if self.game_over or self.is_paused:
+         return
         
         self.previous_state = ([row[:] for row in self.board], self.score)
         
@@ -368,8 +371,11 @@ class GameWinDialog(QDialog):
      def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-        self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+        self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
         self.setModal(True)
+        self.setWindowModality(Qt.WindowModality.ApplicationModal)  # Блокирует все окна приложения
+        self.parent_window = parent
+        self.parent_window.is_paused = True  # Ставим игру на паузу
         
         self.pushButton_2.clicked.connect(self.continue_game)
         self.pushButton.clicked.connect(self.new_game)
@@ -438,11 +444,12 @@ class GameWinDialog(QDialog):
         self.pushButton_2.setText(_translate("Dialog", "ДА"))
         self.pushButton.setText(_translate("Dialog", "НЕТ"))
      def continue_game(self):
+        self.parent_window.is_paused = False  # Снимаем паузу
         self.accept()
         
      def new_game(self):
+        self.parent_window.is_paused = False  # Снимаем паузу
         self.reject()
-
 class GameOverDialog(QDialog):
     def __init__(self, score, parent=None):
         super().__init__(parent)

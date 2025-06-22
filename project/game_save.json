@@ -1,0 +1,36 @@
+{
+    "best_score": 828,
+    "current_game": {
+        "grid_size": 4,
+        "board": [
+            [
+                0,
+                2,
+                4,
+                2
+            ],
+            [
+                0,
+                2,
+                32,
+                2
+            ],
+            [
+                0,
+                0,
+                2,
+                16
+            ],
+            [
+                0,
+                2,
+                0,
+                4
+            ]
+        ],
+        "score": 168,
+        "best_score": 828,
+        "game_over": false,
+        "has_won": false
+    }
+}
